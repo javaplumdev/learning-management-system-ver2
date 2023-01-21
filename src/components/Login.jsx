@@ -45,7 +45,7 @@ const Login = () => {
 								</div>
 								<p className="text-sm">Forgot Password</p>
 							</div>
-							<button className="bg-mainColor w-full p-3 rounded-md my-3 hover:bg-hoverColor">
+							<button className="bg-mainColor w-full p-3 rounded-md my-3 hover:bg-hoverColor text-white">
 								Log in
 							</button>
 							<p className="text-center text-greyColor text-sm">
