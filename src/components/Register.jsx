@@ -20,11 +20,11 @@ const Register = () => {
 
 	let navigate = useNavigate();
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = (e) => {
 		e.preventDefault();
 
 		try {
-			await createUser(email, password, firstName, lastName);
+			createUser(email, password, firstName, lastName);
 			toast.success('Successfully created! Please log in.');
 			navigate('/');
 		} catch (e) {

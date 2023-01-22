@@ -6,27 +6,36 @@ import {
 	onAuthStateChanged,
 	signInWithEmailAndPassword,
 } from 'firebase/auth';
-import { setDoc, doc } from 'firebase/firestore';
+import { setDoc, doc, collection, onSnapshot } from 'firebase/firestore';
 
 export const ContextProvider = createContext();
 
 export const ContextFunction = ({ children }) => {
 	const [user, setUser] = useState(null);
+	const [users, setUsers] = useState(null);
 
-	const createUser = (email, password) => {
-		onAuthStateChanged(auth, (currentUser) => {
-			try {
-				setDoc(doc(db, 'users', currentUser.uid), {
-					id: currentUser.uid,
-					email: email,
-					password: password,
-				});
-			} catch (e) {
-				console.log(e);
-			}
-		});
+	const createUser = async (email, password, firstName, lastName) => {
+		const userCredentials = await createUserWithEmailAndPassword(
+			auth,
+			email,
+			password
+		);
 
-		return createUserWithEmailAndPassword(auth, email, password);
+		try {
+			const userId = userCredentials.user.uid;
+
+			setDoc(doc(db, 'users', userId), {
+				id: userId,
+				email: email,
+				password: password,
+				firstName: firstName,
+				lastName: lastName,
+			});
+		} catch (e) {
+			console.warn(e.message);
+		}
+
+		return userCredentials;
 	};
 
 	const logIn = (email, password) => {
@@ -34,17 +43,23 @@ export const ContextFunction = ({ children }) => {
 	};
 
 	useEffect(() => {
-		const unsub = onAuthStateChanged(auth, (current) => {
-			setUser(current);
+		const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+			setUser(currentUser);
 		});
 
 		return () => {
-			unsub();
+			unsubscribe();
 		};
 	}, []);
 
+	useEffect(() => {
+		onSnapshot(collection(db, 'users'), (snapshot) => {
+			setUsers(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+		});
+	}, []);
+
 	return (
-		<ContextProvider.Provider value={{ createUser, logIn }}>
+		<ContextProvider.Provider value={{ createUser, logIn, user, users }}>
 			{children}
 		</ContextProvider.Provider>
 	);
