@@ -1,7 +1,12 @@
 import React from 'react';
+import Navbar from '../teachers/Navbar';
 
 const StudentsIndex = () => {
-	return <div>StudentsIndex</div>;
+	return (
+		<div>
+			<Navbar />
+		</div>
+	);
 };
 
 export default StudentsIndex;

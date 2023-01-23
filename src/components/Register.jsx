@@ -15,7 +15,7 @@ const Register = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
-
+	const [changeSelection, setChangeSelection] = useState(null);
 	const [error, setError] = useState('');
 
 	let navigate = useNavigate();
@@ -24,12 +24,17 @@ const Register = () => {
 		e.preventDefault();
 
 		try {
-			createUser(email, password, firstName, lastName);
+			createUser(email, password, firstName, lastName, changeSelection);
 			toast.success('Successfully created! Please log in.');
 			navigate('/');
 		} catch (e) {
 			setError(e.message);
 		}
+	};
+
+	const changeSelectionFunc = (e) => {
+		console.log(changeSelection);
+		setChangeSelection(e);
 	};
 
 	return (
@@ -97,6 +102,38 @@ const Register = () => {
 							/>
 						</div>
 						<div className="w-full  mt-3">
+							<div className="my-2 text-center md:text-start">
+								<p className="text-md text-greyColor my-2">Are you a? </p>
+								<input
+									type="radio"
+									id="student"
+									name="type"
+									value="student"
+									onChange={(e) => changeSelectionFunc(e.target.value)}
+								/>
+								<label
+									htmlFor="student"
+									className="text-md ml-2 text-greyColor"
+								>
+									Student
+								</label>
+
+								<input
+									type="radio"
+									id="teacher"
+									name="type"
+									value="teacher"
+									className="ml-3"
+									onChange={(e) => changeSelectionFunc(e.target.value)}
+								/>
+								<label
+									htmlFor="teacher"
+									className="text-md ml-2 text-greyColor"
+								>
+									Teacher
+								</label>
+							</div>
+
 							<input type="checkbox" name="agreements" id="" />
 							<label
 								htmlFor="agreements"

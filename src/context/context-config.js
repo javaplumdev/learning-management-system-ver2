@@ -7,6 +7,7 @@ import {
 	signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { setDoc, doc, collection, onSnapshot } from 'firebase/firestore';
+import { toast } from 'react-hot-toast';
 
 export const ContextProvider = createContext();
 
@@ -14,25 +15,47 @@ export const ContextFunction = ({ children }) => {
 	const [user, setUser] = useState(null);
 	const [users, setUsers] = useState(null);
 
-	const createUser = async (email, password, firstName, lastName) => {
+	const createUser = async (
+		email,
+		password,
+		firstName,
+		lastName,
+		changeSelection
+	) => {
 		const userCredentials = await createUserWithEmailAndPassword(
 			auth,
 			email,
 			password
 		);
 
-		try {
-			const userId = userCredentials.user.uid;
+		if (
+			email === '' ||
+			email === null ||
+			password === '' ||
+			password === null ||
+			firstName === '' ||
+			firstName === null ||
+			lastName === '' ||
+			lastName === null ||
+			changeSelection === '' ||
+			changeSelection === null
+		) {
+			toast.error('Enter missing input fields!');
+		} else {
+			try {
+				const userId = userCredentials.user.uid;
 
-			setDoc(doc(db, 'users', userId), {
-				id: userId,
-				email: email,
-				password: password,
-				firstName: firstName,
-				lastName: lastName,
-			});
-		} catch (e) {
-			console.warn(e.message);
+				setDoc(doc(db, 'users', userId), {
+					id: userId,
+					email: email,
+					password: password,
+					firstName: firstName,
+					lastName: lastName,
+					loginType: changeSelection,
+				});
+			} catch (e) {
+				console.warn(e.message);
+			}
 		}
 
 		return userCredentials;
@@ -58,8 +81,20 @@ export const ContextFunction = ({ children }) => {
 		});
 	}, []);
 
+	let currentUserData = {};
+	const currentUser =
+		users?.filter && users.filter((item) => user.uid === item.id);
+
+	for (let i = 0; i < currentUser?.length; i++) {
+		Object.assign(currentUserData, currentUser[i]);
+	}
+
+	const { loginType } = currentUserData;
+
 	return (
-		<ContextProvider.Provider value={{ createUser, logIn, user, users }}>
+		<ContextProvider.Provider
+			value={{ loginType, createUser, logIn, user, users, currentUserData }}
+		>
 			{children}
 		</ContextProvider.Provider>
 	);

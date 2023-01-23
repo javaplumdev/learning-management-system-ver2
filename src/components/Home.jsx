@@ -1,19 +1,13 @@
 import React from 'react';
 import { useContext } from 'react';
 import { ContextProvider } from '../context/context-config';
-import Navbar from './Navbar';
+import StudentsIndex from './students/StudentsIndex';
+import TeachersIndex from './teachers/TeachersIndex';
 
 const Home = () => {
-	const { user, users } = useContext(ContextProvider);
+	const { loginType } = useContext(ContextProvider);
 
-	console.log(user);
-	console.log(users);
-
-	return (
-		<div>
-			<Navbar />
-		</div>
-	);
+	return <>{loginType === 'teacher' ? <TeachersIndex /> : <StudentsIndex />}</>;
 };
 
 export default Home;
