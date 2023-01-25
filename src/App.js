@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { Home, Login, Register } from './components/index';
-
 import { ContextFunction } from './context/context-config';
 import { ContextFunctionalities } from './context/FunctionalitiesContext';
 import { Toaster } from 'react-hot-toast';
+import SubjectDetails from './components/teachers/SubjectDetails';
 
 function App() {
 	return (
@@ -16,6 +16,7 @@ function App() {
 							<Route path="/" element={<Login />} />
 							<Route path="/register" element={<Register />} />
 							<Route path="/home" element={<Home />} />
+							<Route path="/subject/:id" element={<SubjectDetails />} />
 						</Routes>
 					</div>
 				</Router>

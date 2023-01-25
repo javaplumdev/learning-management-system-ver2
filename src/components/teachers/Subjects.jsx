@@ -32,6 +32,8 @@ const Subjects = () => {
 	const userSubjects =
 		subjects?.filter && subjects.filter((item) => item.owner === id);
 
+	console.log(userSubjects);
+
 	function openModal() {
 		setIsOpen(true);
 	}
@@ -71,41 +73,51 @@ const Subjects = () => {
 						>
 							Create
 						</button>
-						<Modal
-							isOpen={modalIsOpen}
-							onAfterOpen={afterOpenModal}
-							onRequestClose={closeModal}
-							style={customStyles}
-							contentLabel="Example Modal"
-						>
-							<div>
-								<div className="flex justify-between">
-									<h2 ref={(_subtitle) => (subtitle = _subtitle)}>
-										Create subject
-									</h2>
-									<button onClick={closeModal}>close</button>
-								</div>
-								<form onSubmit={handleSubmit} style={{ maxWidth: '320px' }}>
-									<p className="py-3">Please enter the details.</p>
-									<input
-										type="text"
-										placeholder="Subject name"
-										className=" placeholder-slate-400 p-1 px-3 border rounded border-gray-200 w-full"
-										onChange={(e) => setSubjectName(e.target.value)}
-										required
-									/>
-
-									<button className="mt-3 w-full bg-mainColor hover:bg-hoverColor px-3 py-2 rounded text-white">
-										Add
-									</button>
-								</form>
-							</div>
-						</Modal>
 					</div>
 				</div>
 			) : (
-				<SubjectsContainer userSubjects={userSubjects} />
+				<>
+					<div className="flex items-center justify-between mx-3">
+						<p className=" my-5 text-lg font-bold">My subjects</p>
+						<button
+							onClick={openModal}
+							className="bg-mainColor px-3  py-2 rounded-md my-3 hover:bg-hoverColor text-white"
+						>
+							Create
+						</button>
+					</div>
+
+					<SubjectsContainer userSubjects={userSubjects} />
+				</>
 			)}
+			<Modal
+				isOpen={modalIsOpen}
+				onAfterOpen={afterOpenModal}
+				onRequestClose={closeModal}
+				style={customStyles}
+				contentLabel="Example Modal"
+			>
+				<div>
+					<div className="flex justify-between">
+						<h2 ref={(_subtitle) => (subtitle = _subtitle)}>Create subject</h2>
+						<button onClick={closeModal}>close</button>
+					</div>
+					<form onSubmit={handleSubmit} style={{ maxWidth: '320px' }}>
+						<p className="py-3">Please enter the details.</p>
+						<input
+							type="text"
+							placeholder="Subject name"
+							className=" placeholder-slate-400 p-1 px-3 border rounded border-gray-200 w-full"
+							onChange={(e) => setSubjectName(e.target.value)}
+							required
+						/>
+
+						<button className="mt-3 w-full bg-mainColor hover:bg-hoverColor px-3 py-2 rounded text-white">
+							Add
+						</button>
+					</form>
+				</div>
+			</Modal>
 		</div>
 	);
 };

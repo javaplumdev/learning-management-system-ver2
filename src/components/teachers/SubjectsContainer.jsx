@@ -1,15 +1,20 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const SubjectsContainer = ({ userSubjects }) => {
 	const UserSubjectsComponent = () => {
 		return (
-			<div className="flex">
+			<div className="flex flex-wrap	">
 				{userSubjects?.map &&
 					userSubjects.map((item) => {
 						return (
-							<div key={item.subjectName} className="bg-red-700 mx-3">
+							<Link
+								to={`/subject/${item.subjectName}`}
+								key={item.subjectName}
+								className="mx-3 p-3 rounded border border-bg-slate-700"
+							>
 								<p>{item.subjectName}</p>
-							</div>
+							</Link>
 						);
 					})}
 			</div>

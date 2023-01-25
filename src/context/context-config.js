@@ -8,7 +8,15 @@ import {
 	signInWithPopup,
 	getAdditionalUserInfo,
 } from 'firebase/auth';
-import { setDoc, doc, collection, onSnapshot } from 'firebase/firestore';
+import {
+	setDoc,
+	doc,
+	collection,
+	onSnapshot,
+	query,
+	orderBy,
+	serverTimestamp,
+} from 'firebase/firestore';
 import { toast } from 'react-hot-toast';
 import { profilePicture } from '../data/data';
 
@@ -18,6 +26,7 @@ export const ContextFunction = ({ children }) => {
 	const [user, setUser] = useState(null);
 	const [users, setUsers] = useState(null);
 	const [subjects, setSubjects] = useState(null);
+	const [isLoading, setIsLoading] = useState(true);
 
 	function generateRandomArray(n, values) {
 		let arr = [];
@@ -53,7 +62,7 @@ export const ContextFunction = ({ children }) => {
 				firstName: firstName,
 				lastName: lastName,
 				loginType: changeSelection,
-				profilePicture: randomProfilePicture,
+				profilePicture: randomProfilePicture.toString(),
 			});
 		} catch (e) {
 			console.warn(e.message);
@@ -61,29 +70,6 @@ export const ContextFunction = ({ children }) => {
 
 		return userCredentials;
 	};
-
-	// const googleSignIn = async () => {
-	// 	const googleAuthProvider = new GoogleAuthProvider();
-
-	// 	return signInWithPopup(auth, googleAuthProvider).then(
-	// 		async function createUserDb(userCredentials) {
-	// 			const details = getAdditionalUserInfo(userCredentials);
-
-	// 			if (details.isNewUser) {
-	// 				setDoc(
-	// 					doc(db, 'users', userCredentials.user.uid),
-	// 					{
-	// 						id: userCredentials.user.uid,
-	// 						name: userCredentials.user.displayName,
-	// 						email: userCredentials.user.email,
-	// 						profilePicture: [userCredentials.user.photoURL],
-	// 					},
-	// 					{ merge: true }
-	// 				);
-	// 			}
-	// 		}
-	// 	);
-	// };
 
 	const logIn = (email, password) => {
 		return signInWithEmailAndPassword(auth, email, password);
@@ -94,6 +80,7 @@ export const ContextFunction = ({ children }) => {
 			subjectName: subjectName,
 			owner: userId,
 			password: subjectCode,
+			timestamp: serverTimestamp(),
 		});
 	};
 
@@ -112,9 +99,16 @@ export const ContextFunction = ({ children }) => {
 			setUsers(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 		});
 
-		onSnapshot(collection(db, 'subjects'), (snapshot) => {
+		const querySubjects = query(
+			collection(db, 'subjects'),
+			orderBy('timestamp', 'desc')
+		);
+
+		onSnapshot(querySubjects, (snapshot) => {
 			setSubjects(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 		});
+
+		setIsLoading(false);
 	}, []);
 
 	let currentUserData = {};
@@ -139,6 +133,7 @@ export const ContextFunction = ({ children }) => {
 				currentUserData,
 				createSubject,
 				subjects,
+				isLoading,
 			}}
 		>
 			{children}

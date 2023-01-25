@@ -5,9 +5,7 @@ import StudentsIndex from './students/StudentsIndex';
 import TeachersIndex from './teachers/TeachersIndex';
 
 const Home = () => {
-	const { loginType, user } = useContext(ContextProvider);
-
-	console.log(user);
+	const { loginType } = useContext(ContextProvider);
 
 	return <>{loginType === 'teacher' ? <TeachersIndex /> : <StudentsIndex />}</>;
 };

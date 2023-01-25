@@ -1,20 +1,20 @@
 import React, { useContext } from 'react';
 import { ContextProvider } from '../../context/context-config';
 import { logo } from '../../data/data';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
 	const { currentUserData } = useContext(ContextProvider);
 
 	const { profilePicture } = currentUserData;
 
-	console.log(currentUserData);
-
 	return (
 		<div className="px-3">
 			<div className="mx-auto container py-3 flex justify-between items-center">
-				{logo}
+				<Link to="/home">{logo}</Link>
+
 				<img
-					src={profilePicture[0]}
+					src={profilePicture}
 					alt="profilePicture"
 					style={{
 						borderRadius: '50%',
