@@ -66,18 +66,21 @@ const Register = () => {
 								placeholder="First name"
 								className="placeholder:text-md w-full py-3 px-3 bg-inputColor rounded-sm"
 								onChange={(e) => setFirstName(e.target.value)}
+								required
 							/>
 							<input
 								type="text"
 								placeholder="Last name"
 								className="placeholder:text-md w-full py-3 px-3 my-3 bg-inputColor rounded-sm"
 								onChange={(e) => setLastName(e.target.value)}
+								required
 							/>
 							<input
 								type="text"
 								placeholder="Password"
 								className="placeholder:text-md w-full py-3 px-3 bg-inputColor rounded-sm"
 								onChange={(e) => setPassword(e.target.value)}
+								required
 							/>
 						</div>
 
@@ -87,18 +90,21 @@ const Register = () => {
 								placeholder="Email"
 								className="placeholder:text-md w-full py-3 px-3 bg-inputColor rounded-sm"
 								onChange={(e) => setEmail(e.target.value)}
+								required
 							/>
 							<input
 								type="text"
 								placeholder="Username"
 								className="placeholder:text-md w-full py-3 px-3 my-3 bg-inputColor rounded-sm"
 								onChange={(e) => setUsername(e.target.value)}
+								required
 							/>
 							<input
 								type="text"
 								placeholder="Confirm password"
 								className="placeholder:text-md w-full py-3 px-3 bg-inputColor rounded-sm"
 								onChange={(e) => setConfirmPassword(e.target.value)}
+								required
 							/>
 						</div>
 						<div className="w-full  mt-3">
@@ -110,6 +116,7 @@ const Register = () => {
 									name="type"
 									value="student"
 									onChange={(e) => changeSelectionFunc(e.target.value)}
+									required
 								/>
 								<label
 									htmlFor="student"
@@ -125,6 +132,7 @@ const Register = () => {
 									value="teacher"
 									className="ml-3"
 									onChange={(e) => changeSelectionFunc(e.target.value)}
+									required
 								/>
 								<label
 									htmlFor="teacher"
@@ -134,7 +142,7 @@ const Register = () => {
 								</label>
 							</div>
 
-							<input type="checkbox" name="agreements" id="" />
+							<input type="checkbox" name="agreements" id="" required />
 							<label
 								htmlFor="agreements"
 								className="text-sm ml-2 text-greyColor"

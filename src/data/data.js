@@ -26,3 +26,11 @@ export const logo = (
 		</defs>
 	</svg>
 );
+
+export const profilePicture = [
+	'https://ouch-cdn2.icons8.com/wLpxoRRjuGiPp16oSoRZTspWRxpGJtV56PUpdJUWGfA/rs:fit:256:311/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNzQv/YTM5OWFhNzItMjYw/ZS00ZTBhLWI0NWQt/ZThhZWY5Yjc5N2Iz/LnN2Zw.png',
+	'https://ouch-cdn2.icons8.com/GHLGr2_olckDomIb3PZUYBBV-cbd0PuWZ3uPht229q0/rs:fit:256:315/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvMTUw/LzAzNTU1ZDRhLTM3/ZTQtNGE2ZC05NWFh/LTM0ZjY1YzI0YWQ0/Ny5zdmc.png',
+	'https://ouch-cdn2.icons8.com/SwehBZYOjZl69TVNO0tG_uQJm3Z5rkcubJpHMRhxu_w/rs:fit:256:316/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvMjEz/LzdjYmNiZWFiLWY2/YjctNGRkYi1hZmUz/LTIzMGZlNDRlZWQ0/OS5zdmc.png',
+	'https://ouch-cdn2.icons8.com/nkOQvz3TkV9qMgPxxRh_NuHppeXxQ3BN5vbIXDGioNM/rs:fit:256:314/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNTM5/L2UwMjA1OWI1LTNi/ZTUtNGMwYi04Njk2/LWI5NDFkODdiMjAx/Ny5zdmc.png',
+	'https://ouch-cdn2.icons8.com/_IJ8PYXitlklKoBRb-dovOHpoOlWNMEmbiqADLaEWMc/rs:fit:256:316/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNDk3/LzRjYWExOGJlLWJh/YTQtNDkwMC1hNjE2/LTY4NjIxM2FmMjNj/Ny5zdmc.png',
+];

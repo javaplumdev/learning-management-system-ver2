@@ -6,7 +6,7 @@ import { ContextProvider } from '../context/context-config';
 import { toast } from 'react-hot-toast';
 
 const Login = () => {
-	const { logIn } = useContext(ContextProvider);
+	const { logIn, googleSignIn } = useContext(ContextProvider);
 
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -26,6 +26,18 @@ const Login = () => {
 		}
 	};
 
+	// const handleGoogleSignIn = async (e) => {
+	// 	e.preventDefault();
+
+	// 	try {
+	// 		await googleSignIn();
+	// 		navigate('/home');
+	// 		toast.success(`Welcome!`);
+	// 	} catch (error) {
+	// 		console.warn(error.message);
+	// 	}
+	// };
+
 	return (
 		<div className="h-screen grid lg:grid-cols-2">
 			<div>
@@ -39,7 +51,10 @@ const Login = () => {
 							<p className="my-3 text-greyColor text-sm">
 								Welcome! Please enter your details.
 							</p>
-							<div className="border border-greyColor py-3 rounded-sm w-full text-blackColor flex items-center justify-center hover:cursor-pointer">
+							<div
+								// onClick={handleGoogleSignIn}
+								className="border border-greyColor py-3 rounded-sm w-full text-blackColor flex items-center justify-center hover:cursor-pointer"
+							>
 								<FcGoogle className="mr-2" size="20" /> Log in with Google
 							</div>
 							{error && (
