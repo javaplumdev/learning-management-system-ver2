@@ -13,17 +13,19 @@ const Navbar = () => {
 			<div className="mx-auto container py-3 flex justify-between items-center">
 				<Link to="/home">{logo}</Link>
 
-				<img
-					src={profilePicture}
-					alt="profilePicture"
-					style={{
-						borderRadius: '50%',
-						width: '40px',
-						objectFit: 'cover',
-						height: '40px',
-						transform: 'scale(1.2)',
-					}}
-				/>
+				<Link to="/settings/teachers">
+					<img
+						src={profilePicture}
+						alt="profilePicture"
+						style={{
+							borderRadius: '50%',
+							width: '40px',
+							objectFit: 'cover',
+							height: '40px',
+							transform: 'scale(1.2)',
+						}}
+					/>
+				</Link>
 			</div>
 		</div>
 	);

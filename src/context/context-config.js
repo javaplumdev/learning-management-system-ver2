@@ -7,6 +7,7 @@ import {
 	signInWithEmailAndPassword,
 	signInWithPopup,
 	getAdditionalUserInfo,
+	signOut,
 } from 'firebase/auth';
 import {
 	setDoc,
@@ -27,6 +28,7 @@ export const ContextFunction = ({ children }) => {
 	const [users, setUsers] = useState(null);
 	const [subjects, setSubjects] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
+	const [posts, setPosts] = useState(null);
 
 	function generateRandomArray(n, values) {
 		let arr = [];
@@ -84,6 +86,10 @@ export const ContextFunction = ({ children }) => {
 		});
 	};
 
+	const logOut = () => {
+		return signOut(auth);
+	};
+
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
 			setUser(currentUser);
@@ -108,6 +114,15 @@ export const ContextFunction = ({ children }) => {
 			setSubjects(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
 		});
 
+		const queryPosts = query(
+			collection(db, 'posts'),
+			orderBy('timestamp', 'desc')
+		);
+
+		onSnapshot(queryPosts, (snapshot) => {
+			setPosts(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+		});
+
 		setIsLoading(false);
 	}, []);
 
@@ -125,6 +140,7 @@ export const ContextFunction = ({ children }) => {
 	return (
 		<ContextProvider.Provider
 			value={{
+				posts,
 				loginType,
 				createUser,
 				logIn,
@@ -134,6 +150,8 @@ export const ContextFunction = ({ children }) => {
 				createSubject,
 				subjects,
 				isLoading,
+				posts,
+				logOut,
 			}}
 		>
 			{children}
